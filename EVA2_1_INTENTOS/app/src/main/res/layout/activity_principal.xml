@@ -37,7 +37,6 @@
         android:layout_height="wrap_content"
         android:text="Busqueda WEB"
         android:gravity="center"
-        android:paddingTop="35dp"
         android:textStyle="bold"/>
 
     <EditText
@@ -61,7 +60,6 @@
         android:layout_height="wrap_content"
         android:text="Mandar SMS"
         android:gravity="center"
-        android:paddingTop="35dp"
         android:textStyle="bold"/>
 
     <EditText
@@ -88,4 +86,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="SEND" />
+
+    <Button
+        android:id="@+id/btnLlamar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Llamar" />
 </LinearLayout>

@@ -12,7 +12,7 @@ import android.widget.EditText;
 public class Principal extends AppCompatActivity {
 
     private EditText etxtNum, etxtURL, etxtNum2, etxtMSG;
-    private Button btnCall, btnBrowse, btnSend;
+    private Button btnCall, btnBrowse, btnSend, btnLlamar;
     private Intent inMarcar, inBrowse, inMsg;
 
     @Override
@@ -27,6 +27,7 @@ public class Principal extends AppCompatActivity {
         etxtNum2 = findViewById(R.id.etxtNum2);
         etxtMSG = findViewById(R.id.etxtMSG);
         btnSend = findViewById(R.id.btnSend);
+        btnLlamar = findViewById(R.id.btnLlamar);
 
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,18 @@ public class Principal extends AppCompatActivity {
                 inMsg = new Intent(Intent.ACTION_SENDTO, Uri.parse(tel));
                 inMsg.putExtra("sms_body", msg);
                 startActivity(inMsg);
+            }
+        });
+
+        btnLlamar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sTel = "tel:" + etxtNum.getText().toString();
+                inMarcar = new Intent(Intent.ACTION_CALL,Uri.parse(sTel));
+//                SIN RECUPERAR RESULTADOS
+                startActivity(inMarcar);
+//                PARA RECUPERAR RESULTADOS
+//                startActivityForResult();
             }
         });
     }
