@@ -1,5 +1,7 @@
 package com.example.miguel.eva2_11_onactivityresult;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,9 @@ public class ListadoMaterias extends AppCompatActivity implements ListView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent inDatos = new Intent();
+        inDatos.putExtra("MATERIA",asMaterias[position]+"\n");
+        setResult(Activity.RESULT_OK,inDatos);
+        finish();
     }
 }

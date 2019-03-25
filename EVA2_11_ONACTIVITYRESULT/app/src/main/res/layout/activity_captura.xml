@@ -40,9 +40,14 @@
         android:layout_height="wrap_content"
         android:text="materias a cursar" />
 
+    <Button
+        android:id="@+id/btnGo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="aceptar" />
+
     <TextView
         android:id="@+id/txtMaterias"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
