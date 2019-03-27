@@ -1,9 +1,11 @@
 package com.example.miguel.eva2_restaurantes;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.icu.text.IDNA;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,8 +22,6 @@ public class InfoActivity extends AppCompatActivity {
     private LinearLayout imagen2;
     private TextView txtNom, txtDesc, txtCalle, txtColonia;
     private Button btnTel;
-
-    private static final int REQUEST_CALL = 1;
 
     private Bundle bundle;
 
@@ -57,31 +57,30 @@ public class InfoActivity extends AppCompatActivity {
         btnTel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(InfoActivity.this,
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(InfoActivity.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_CALL);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    newerVersions();
                 }else{
-                    String dial = "tel:" + telefono;
-                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+                    olderVersions(telefono);
                 }
+            }
+
+            private void olderVersions(String phoneNumber){
+                Intent inCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
+                if(checkPermission(Manifest.permission.CALL_PHONE)){
+                    startActivity(inCall);
+                }else{
+                    Toast.makeText(InfoActivity.this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            private void newerVersions(){
+
             }
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        final String telefono2 = bundle.getString("Telefono");
-        if(requestCode == REQUEST_CALL){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                if(ContextCompat.checkSelfPermission(InfoActivity.this,
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(InfoActivity.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_CALL);
-                }else{
-                    String dial = "tel:" + telefono2;
-                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
-                }
-            }
-        }
+    private boolean checkPermission(String permission){
+        int result = this.checkCallingOrSelfPermission(permission);
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 }
