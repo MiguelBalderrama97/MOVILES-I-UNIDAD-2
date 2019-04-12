@@ -57,6 +57,7 @@ public class Captura extends AppCompatActivity {
                 inDatos.putExtra("APELLIDO", etxtApe.getText().toString());
                 inDatos.putExtra("MATERIAS", txtMaterias.getText().toString());
                 setResult(Activity.RESULT_OK, inDatos);
+                finish();
             }
         });
     }
